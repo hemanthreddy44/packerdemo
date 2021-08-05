@@ -1,0 +1,29 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "AKIA5FBAMPII7QN4Y6WM",
+      "secret_key": "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",
+      "region": "us-east-1",
+      "ami_name": "Ubuntu-nginx-with-custompage",
+      "source_ami": "ami-0ac80df6eff0e70b5",
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "setup.sh"
+    },
+    {
+      "type": "file",
+      "source": "index.html",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "shell",
+      "inline": ["sudo cp /tmp/index.html /var/www/html/"]
+    }
+  ]
+}
